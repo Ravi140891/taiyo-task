@@ -1,12 +1,15 @@
+// Import required dependencies
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { addContact } from "../store/contactSlice";
 
+// Define the props of the CreateContact component
 interface Props {
   show: boolean;
   setShow: (show: boolean) => void;
 }
 
+// Define the shape of the contact data
 interface ContactData {
   id: string;
   firstName: string;
@@ -14,10 +17,12 @@ interface ContactData {
   status: string;
 }
 
+// Define the CreateContact component
 const CreateContact: React.FC<Props> = ({ show, setShow }) => {
   const dispatch = useDispatch();
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  // Set up state to hold contact data
   const [contactData, setContactData] = useState<ContactData>({
     id: "",
     firstName: "",
@@ -25,6 +30,7 @@ const CreateContact: React.FC<Props> = ({ show, setShow }) => {
     status: "",
   });
 
+  // Handle changes to form inputs
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -34,20 +40,27 @@ const CreateContact: React.FC<Props> = ({ show, setShow }) => {
     });
   };
 
+  // Handle form submission
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    const id = parseInt(new Date().getTime().toString()); // generate unique id as a number
+    // Generate an ID for the new contact
+    const id = parseInt(new Date().getTime().toString());
+    // Dispatch the addContact action with the new contact data
     dispatch(addContact({ ...contactData, id }));
+    // Clear the form input fields
     setContactData({ id: "", firstName: "", lastName: "", status: "" });
+    // Close the create contact screen
     setShow(false);
   };
 
+  // Handle clicks outside of the create contact screen
   const handleClickOutside = (event: MouseEvent): void => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
       setShow(false);
     }
   };
 
+  // Add event listeners for clicks outside of the create contact screen
   useEffect(() => {
     if (show) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -55,10 +68,13 @@ const CreateContact: React.FC<Props> = ({ show, setShow }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     }
 
+    // Remove event listeners when the component unmounts
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  },);
+  }, [show]);
+
+  // Render the create contact form
   return (
     <div className="w-auto flex flex-col p-4" ref={wrapperRef}>
       <h3 className="font-bold text-3xl">Create Contact Screen</h3>

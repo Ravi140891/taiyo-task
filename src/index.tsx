@@ -1,3 +1,4 @@
+// Import necessary dependencies
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -7,12 +8,15 @@ import { Provider } from 'react-redux'
 import store from './store/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+// Create a new instance of the query client
 const queryClient = new QueryClient()
 
+// Use createRoot to render the app
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
+  // Wrap the app in the query client provider and redux provider
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>

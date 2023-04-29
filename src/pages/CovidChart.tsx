@@ -1,3 +1,4 @@
+// Importing required dependencies
 import React, { useCallback } from 'react';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
@@ -16,6 +17,7 @@ import { min, max } from 'lodash';
 import { range } from 'lodash';
 
 const CovidChart = () => {
+  // Defining a function to fetch data from the API
   const fetchData = useCallback(async () => {
     const res = await axios.get(
       'https://disease.sh/v3/covid-19/historical/all?lastdays=all'
@@ -23,6 +25,7 @@ const CovidChart = () => {
 
     const { cases, deaths, recovered } = res.data;
 
+    // Preparing chart data from the fetched data
     const chartData = Object.entries(cases).map(([date, value]) => ({
       date: new Date(date),
       cases: value,
@@ -33,11 +36,13 @@ const CovidChart = () => {
     return chartData;
   }, []);
 
+  // Using react-query hook to handle the API request and its responses
   const { isLoading, error, data } = useQuery(
     ['cases', 'deaths', 'recoveries'],
     fetchData
   );
 
+  // Calculating y-axis min and max values and tick values for the chart
   const yMin = data
     ? min(data.map(d => min([d.cases, d.deaths, d.recoveries])))
     : 0;
@@ -51,11 +56,9 @@ const CovidChart = () => {
     (yMax - yMin) / 5
   ).sort((a, b) => a - b);
 
+  // Rendering the chart component
   return (
     <div className="min-h-screen flex flex-col">
-      {/* <h1 className="text-3xl font-bold text-emerald-600 bg-lime-500 w-full p-4 text-center">
-        Covid Data Chart
-      </h1> */}
       <div className="flex-grow flex flex-wrap">
         <div
           className="w-full md:flex-grow h-80 md:h-full flex justify-center items-center mx-auto"

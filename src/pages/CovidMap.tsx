@@ -4,17 +4,19 @@ import { useQuery } from '@tanstack/react-query';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import Sidebar from '../component/Sidebar';
 
 const CovidMap = () => {
+  // Define the style of the map
   const mapStyle = {
     height: '600px',
     width: '100%',
   };
 
+  // Define a function to fetch the COVID-19 data from an API
   const fetchData = useCallback(async () => {
     const res = await axios.get('https://disease.sh/v3/covid-19/countries');
 
+    // Map the API response to an array of objects with the desired properties
     const countryData = res.data.map((country: any) => ({
       country: country.country,
       cases: country.cases,
@@ -28,24 +30,29 @@ const CovidMap = () => {
     return countryData;
   }, []);
 
+  // Use the react-query library to fetch the data and handle loading and errors
   const { data, isLoading, error } = useQuery(
     ['country', 'cases', 'active', 'lat', 'long'],
     fetchData
   );
 
+  // If the data is still loading, display a loading message
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
+  // If there was an error fetching the data, display an error message
   if (error) {
     return <div>Error</div>;
   }
 
+  // Define the icon to use for the markers
   const virusIcon = L.icon({
     iconUrl: '/location-pin.png',
     iconSize: [50, 50],
   });
 
+  // Render the map with markers and popups for each country's COVID-19 data
   return (
     <div className="min-h-screen flex flex-col">
       {/* <h1 className="text-3xl font-bold text-emerald-600 bg-lime-500 w-full p-4 text-center">
