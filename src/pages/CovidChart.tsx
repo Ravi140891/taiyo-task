@@ -12,7 +12,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import Sidebar from '../component/Sidebar';
 import { min, max } from 'lodash';
 import { range } from 'lodash';
 
