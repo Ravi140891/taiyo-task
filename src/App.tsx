@@ -1,6 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import Homepage from './pages/Homepage';
 import Contacts from './pages/Contacts';
+import CovidChart from './pages/CovidChart';
+import CovidMap from './pages/CovidMap';
 
 function App(): JSX.Element {
   return (
@@ -8,6 +10,8 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/contacts" element={<Contacts />} />
+        <Route path="/charts" element={<CovidChart />} />
+        <Route path="/maps" element={<CovidMap />} />
       </Routes>
     </div>
   );
