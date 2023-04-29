@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import Sidebar from "../component/Sidebar";
-import CreateContact from "../component/CreateContact";
-import ContactCard from "../component/ContactCard";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import React, { useState } from 'react';
+import Sidebar from '../component/Sidebar';
+import CreateContact from '../component/CreateContact';
+import ContactCard from '../component/ContactCard';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 interface Contact {
   id: number;
@@ -25,11 +25,10 @@ const Contacts: React.FC = () => {
 
   return (
     <div className="container w-full flex flex-col justify-center items-center mx-auto max-w-none">
-      <h1 className="text-3xl font-bold text-emerald-600 bg-lime-500 w-full p-4 text-center">
+      {/* <h1 className="text-3xl font-bold text-emerald-600 bg-lime-500 w-full p-4 text-center">
         Contact Page
-      </h1>
+      </h1> */}
       <div className="flex w-full h-full">
-        <Sidebar />
         <div className="w-full h-full flex flex-col justify-between items-center">
           {!showCreateContact && (
             <button
@@ -46,7 +45,7 @@ const Contacts: React.FC = () => {
             />
           )}
           <div className="w-full h-auto flex justify-evenly items-center flex-wrap">
-            {cards.map((item) => (
+            {cards.map(item => (
               <ContactCard
                 key={item.id}
                 id={item.id}

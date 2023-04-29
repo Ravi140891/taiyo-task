@@ -1,16 +1,44 @@
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 
 const Sidebar: React.FC = () => {
-  return (
-    <nav className='w-30 mx-0 h-full p-2'>
-        <ul className='flex flex-col justify-center'>
-            <NavLink to='/'><li className='border border-white text-center border-b-0 p-4 text-xl cursor-pointer hover:bg-red-700 bg-red-400 text-white'>Home</li></NavLink>
-            <NavLink to='/contacts'><li className='border border-white text-center border-b-0 p-4 text-xl cursor-pointer hover:bg-red-700 bg-red-400 text-white'>Contact</li></NavLink>
-            <NavLink to='/charts'><li className='border border-white text-center border-b-0 p-4 text-xl cursor-pointer hover:bg-red-700 bg-red-400 text-white'>Charts</li></NavLink>
-            <NavLink to='/maps'><li className='border border-white text-center p-4 text-xl cursor-pointer hover:bg-red-700 bg-red-400 text-white'>Maps</li></NavLink>
-        </ul>
-    </nav>
-  )
-}
+  const activeStyles = {
+    border: '2px solid white',
+  };
 
-export default Sidebar
+  return (
+    <nav className="w-full bg-green-500  mb-5 sm:mb-1">
+      <div className="flex flex-col justify-center gap-8 py-5 sm:flex-row sm:gap-3">
+        <NavLink
+          style={({ isActive }) => (isActive ? activeStyles : {})}
+          className="text-lg text-white px-[15px] py-[5px] rounded-lg flex items-center justify-center sm:py-1"
+          to="/"
+        >
+          Home Page
+        </NavLink>
+        <NavLink
+          style={({ isActive }) => (isActive ? activeStyles : {})}
+          className="text-lg text-white px-[15px] py-[5px] rounded-lg flex items-center justify-center sm:py-1"
+          to="/contacts"
+        >
+          Contact Page
+        </NavLink>
+        <NavLink
+          style={({ isActive }) => (isActive ? activeStyles : {})}
+          className="text-lg text-white px-[15px] py-[5px] rounded-lg flex items-center justify-center sm:py-1"
+          to="/charts"
+        >
+          Covid Charts
+        </NavLink>
+        <NavLink
+          style={({ isActive }) => (isActive ? activeStyles : {})}
+          className="text-lg text-white px-[15px] py-[5px] rounded-lg flex items-center justify-center sm:py-1"
+          to="/maps"
+        >
+          Covid Maps
+        </NavLink>
+      </div>
+    </nav>
+  );
+};
+
+export default Sidebar;
